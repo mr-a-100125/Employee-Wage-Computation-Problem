@@ -3,7 +3,8 @@ echo "Welcome to Employee Wage Computation Program on Master Branch."
 
 #Check Employee is Present or Absent.
 #Calcualating Employee Wage.
-isPresent=$((RANDOM%3))
+declare -a employee
+pos=0
 wagePerHr=20
 fullDayHrs=8
 partTime=4
@@ -15,7 +16,6 @@ salaryPerMonth=0
 function salary()
 {
         salaryPerDay=$(($wagePerHr*$1))
-        echo "Day salary : $salaryPerDay"
         totalWorkingHrs=$(($1*$workingDayMonth))
         if [ $totalWorkingHrs -eq 100 ]
         then
@@ -23,9 +23,16 @@ function salary()
         else
         salaryPerMonth=$(($workingDayMonth*$salaryPerDay))
         fi
-        echo "Month salary : $salaryPerMonth"
+	employee[pos]="daily:$salaryPerDay totalWage:$salaryPerMonth"
+	pos=$(($pos+1))
+	echo "Daily Wage : $salaryPerDay"
+        echo "total salary : $salaryPerMonth"
 }
 
+
+
+
+isPresent=$((RANDOM%3))
 case $isPresent in
 	1) echo "Employee is Full time Present."
 	   salary $fullDayHrs
@@ -36,3 +43,4 @@ case $isPresent in
 	*) echo "Employee is Absent."
 	   salary $absent
 esac
+echo ${employee[@]}
