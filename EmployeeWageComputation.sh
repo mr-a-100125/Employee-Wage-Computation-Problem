@@ -7,31 +7,32 @@ isPresent=$((RANDOM%3))
 wagePerHr=20
 fullDayHrs=8
 partTime=4
+absent=0
 salaryPerDay=0
 workingDayMonth=20
 salaryPerMonth=0
 
+function salary()
+{
+        salaryPerDay=$(($wagePerHr*$1))
+        echo "Day salary : $salaryPerDay"
+        totalWorkingHrs=$(($1*$workingDayMonth))
+        if [ $totalWorkingHrs -eq 100 ]
+        then
+                salaryPerMonth=$((100*$salaryPerDay))
+        else
+        salaryPerMonth=$(($workingDayMonth*$salaryPerDay))
+        fi
+        echo "Month salary : $salaryPerMonth"
+}
+
 case $isPresent in
 	1) echo "Employee is Full time Present."
-	   salaryPerDay=$(($wagePerHr*$fullDayHrs))
-	   echo "Day salary : $salaryPerDay"
-	   totalWorkingHrs=$(($fullDayHrs*$workingDayMonth))
-	   if [ $totalWorkingHrs -eq 100 ]
-	   then
-		salaryPerMonth=$((100*$salaryPerDay))
-	   else
-	   	salaryPerMonth=$(($workingDayMonth*$salaryPerDay))
-	   fi
-	   echo "Month salary : $salaryPerMonth"
+	   salary $fullDayHrs
 		;;
 	2) echo "Employee is Part time Present."
-           salaryPerDay=$(($wagePerHr*$partTime))
-	   echo "Day salary : $salaryPerDay"
-	   salaryPerMonth=$(($workingDayMonth*$salaryPerDay))
-	   echo "Month salary : $salaryPerMonth"
+           salary $partTime
 		;;
 	*) echo "Employee is Absent."
-	   echo "Day salary : $salaryPerDay"
-	   echo "Month salary : $salaryPerMonth"
+	   salary $absent
 esac
-
