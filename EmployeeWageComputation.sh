@@ -15,7 +15,13 @@ case $isPresent in
 	1) echo "Employee is Full time Present."
 	   salaryPerDay=$(($wagePerHr*$fullDayHrs))
 	   echo "Day salary : $salaryPerDay"
-	   salaryPerMonth=$(($workingDayMonth*$salaryPerDay))
+	   totalWorkingHrs=$(($fullDayHrs*$workingDayMonth))
+	   if [ $totalWorkingHrs -eq 100 ]
+	   then
+		salaryPerMonth=$((100*$salaryPerDay))
+	   else
+	   	salaryPerMonth=$(($workingDayMonth*$salaryPerDay))
+	   fi
 	   echo "Month salary : $salaryPerMonth"
 		;;
 	2) echo "Employee is Part time Present."
