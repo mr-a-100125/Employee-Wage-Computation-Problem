@@ -9,18 +9,16 @@ fullDayHrs=8
 partTime=4
 salaryPerDay=0
 
-if [ $isPresent -eq 1 ]
-then
-	echo "Employee is Full time Present."
-	salaryPerDay=$(($wagePerHr*$fullDayHrs))
-elif [ $isPresent -eq 2 ]
-then
-	echo "Employee is Part time Present."
-	salaryPerDay=$(($wagePerHr*$partTime))
-else
-	echo "Employee is Absent."
-fi
-echo "$salaryPerDay"
-
-
+case $isPresent in
+	1) echo "Employee is Full time Present."
+	   salaryPerDay=$(($wagePerHr*$fullDayHrs))
+	   echo "$salaryPerDay"
+		;;
+	2) echo "Employee is Part time Present."
+           salaryPerDay=$(($wagePerHr*$partTime))
+	   echo "$salaryPerDay"
+		;;
+	*) echo "Employee is Absent."
+	   echo "$salaryPerDay"
+esac
 
